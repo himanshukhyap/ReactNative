@@ -1,4 +1,4 @@
-import { Linking, StyleSheet,  Text, TouchableOpacity, View } from 'react-native'
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { utils } from '@react-native-firebase/app';
@@ -16,7 +16,7 @@ const Storage = () => {
     const [filePath, setFilePath] = useState([]);
     const [process, setProcess] = useState("");
     const [listData, setListData] = useState([]);
-
+const [foruseeffct, setforuseeffct] = useState(false)
     const listFilesAndDirectories = (pageToken) => {
         const reference = storage().ref(`${user?.uid}`);
         setListData([])
@@ -38,22 +38,19 @@ const Storage = () => {
     };
     useEffect(() => {
         listFilesAndDirectories("");
-    }, [Loading]);
+    }, [Loading,foruseeffct]);
     const _chooseFile = async () => {
-        // Opening Document Picker to select one file
+
         try {
             const fileDetails = await DocumentPicker.pickMultiple({
                 type: [DocumentPicker.types.allFiles],
                 copyTo: "cachesDirectory"
             });
-            // console.log(
-            //     "fileDetails : " + JSON.stringify(fileDetails)
-            // );
 
             setFilePath(fileDetails);
         } catch (error) {
             setFilePath([]);
-            // If user canceled the document selection
+
             alert(
                 DocumentPicker.isCancel(error)
                     ? "Canceled"
@@ -62,7 +59,7 @@ const Storage = () => {
         }
 
     };
-    // console.log(filePath);
+
     const _uploadFile = async () => {
         try {
 
@@ -80,8 +77,7 @@ const Storage = () => {
 
                 await task.on("state_changed", (taskSnapshot) => {
                     setProcess(
-                        `${taskSnapshot.bytesTransferred} transferred 
-                       out of ${taskSnapshot.totalBytes}`
+                        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
                     );
                 });
                 await task.then(() => {
@@ -100,23 +96,21 @@ const Storage = () => {
     };
 
     return (
-
         <View style={styles.container}>
+
             <View >
                 <Text style={styles.titleText}>
                     Upload Input Text as File on FireStorage
                 </Text>
-                <View style={styles.container}>
-                    <Text>
-                        Choose File and Upload to FireStorage
-                    </Text>
-                    <Text>{process}</Text>
+                <View >
+
+                    <Text style={{fontWeight:'800',alignSelf:'center'}}>{process}</Text>
                     <TouchableOpacity
                         activeOpacity={0.5}
                         style={styles.buttonStyle}
                         onPress={_chooseFile}
                     >
-                        <Text style={styles.buttonTextStyle}>
+                        <Text >
                             Choose Image (Current Selected:{" "}
                             {filePath.length == 0
                                 ? 0
@@ -125,7 +119,7 @@ const Storage = () => {
                         </Text>
                     </TouchableOpacity>
                     <Button
-                        style={styles.buttonStyle}
+                        buttonStyle={{ flexWrap: 'wrap', width: "80%", alignSelf: 'center', padding: 10 }}
                         onPress={_uploadFile}
                         loading={Loading}
                         title="Upload File on FireStorage"
@@ -134,19 +128,20 @@ const Storage = () => {
                 </View>
 
             </View>
-          
-                <View>
-                    {
-                        listData?.map((x) => {
-                            return (
-                                <View key={x + 2} style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-                                    <Text onPress={() => { getItem(x.fullPath) }} key={x + 1}>{x.name}</Text>
-                                    <Button type='clear' key={x + 3} icon={{ name: "delete", color: "red" }} onPress={() => { DeleteItem(x.fullPath) }} />
-                                </View>
-                            )
-                        })}
-                </View>
-     
+
+            <View style={{marginTop:15,borderTopWidth:1,}}>
+                {
+                    listData?.map((x) => {
+                        return (
+                            <View key={x + 2} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',padding:15,marginBottom:10 }}>
+                                <Text onPress={() => { getItem(x.fullPath) }} key={x + 1}>{x.name}</Text>
+                                <Button type='clear' key={x + 3} icon={{ name: "delete", color: "red" }} onPress={() => { DeleteItem(x.fullPath);setforuseeffct(!foruseeffct) }} />
+                            </View>
+                        )
+                    })}
+            </View>
+
+
         </View>
 
 
@@ -158,9 +153,10 @@ export default Storage
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
+
         backgroundColor: "#61616130",
-        alignItems: "center",
+        padding: 10,
+        height: "100%"
 
     },
     titleText: {
@@ -169,12 +165,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         padding: 20,
 
+
     },
     buttonStyle: {
         alignItems: "center",
         backgroundColor: "orange",
         padding: 15,
-
+        alignSelf: 'center',
         width: "80%",
         marginTop: 16,
         marginBottom: 16,
