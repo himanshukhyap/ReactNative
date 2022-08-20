@@ -221,7 +221,7 @@ const Task = ({ route, navigation }) => {
                         </TabView>
                     </>
                 </View>
-                <SpeedDial
+                {/* <SpeedDial
                     isOpen={open}
                     icon={{ name: 'add', color: '#fff' }}
                     openIcon={{ name: 'close', color: '#fff' }}
@@ -234,14 +234,7 @@ const Task = ({ route, navigation }) => {
                         onPress={() => { navigation.navigate("Storage") }}
                     />
 
-
-
-                    {/* <SpeedDial.Action
-                        icon={{ name: 'delete', color: '#fff' }}
-                        title="Delete"
-                        onPress={() => console.log('Delete Something')}
-                    /> */}
-                </SpeedDial>
+                </SpeedDial> */}
 
             </View>
         </>
