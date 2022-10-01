@@ -32,9 +32,9 @@ const PowerTransformer = () => {
 
 
     return (
-        <ScrollView style={{padding: 15,}}>
-            <View style={{  width: "100%" }}>
-
+        <ScrollView >
+       
+            <View style={{paddingRight: 20,paddingLeft: 20,marginHorizontal:"auto",}}>
                 <View style={styles.parentdiv}>
                     <Text style={styles.text}>Rating (KVA)</Text>
                     <TextInput
