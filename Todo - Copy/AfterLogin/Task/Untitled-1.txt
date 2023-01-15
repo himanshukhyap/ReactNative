@@ -1,0 +1,101 @@
+ <ScrollView style={styles.scrollView}>
+                <View >
+                    <Text style={styles.subHeader}>Pending Task</Text>
+                    {data.filter(f => f.Complete == false).map((x) => {
+
+                        return (
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', width: "80%", paddingVertical: 5, marginTop: 15, }} key={x.Id + 1}>
+                                {DocId == x.Id ?
+
+                                    <TextInput style={styles.input} defaultValue={x.Task} key={x.Id + 2} onChangeText={setChnageTask} /> :
+                                    <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                        <CheckBox
+                                            style={{ width: "10%" }}
+                                            checked={checkbox == x.Id && check1}
+                                            onPress={() => { setCheck1(!check1); setcheckbox(x.Id); updateDoc("Demo", ChnageTask, x, "CheckBox") }}
+                                        />
+                                        <Text style={{
+                                            fontSize: 20,
+                                            fontWeight: "bold",
+                                            width: "50%"
+                                        }} key={x.Id + 2}>{x.Task} </Text>
+                                    </View>
+                                }
+                                <View style={{ flexDirection: "row", justifyContent: 'space-between', width: "40%" }} key={x.Id + 3}>
+                                    {DocId == x.Id ? <Button
+                                        onPress={() => { updateDoc("Demo", ChnageTask, x, "Update"); setDocId(null) }}
+                                        title="Done"
+                                        color="#20c997"
+                                        style={{ width: "15%" }}
+
+                                    /> :
+                                        <Button
+                                            onPress={() => { setDocId(x.Id); setChnageTask(x.Task) }}
+                                            title="Edit"
+                                            color="#20c997"
+                                            style={{ width: "15%", alignSelf: "center" }}
+                                        />}
+                                    <Button
+                                        onPress={() => { deleteDoc("Demo", x.Id) }}
+                                        title="Delete"
+                                        color="#dc3545"
+                                        style={{ width: "15%" }}
+                                    />
+                                </View>
+                            </View>
+                        )
+                    })}
+                </View>
+
+            </ScrollView>
+            <ScrollView style={styles.scrollView}>
+                <View >
+                    <Text style={styles.subHeader}>Complete Task</Text>
+                    {data.filter(f => f.Complete == true).map((x) => {
+                        console.log(x)
+
+                        return (
+                            <View style={{ flexDirection: "row", justifyContent: 'space-between', width: "80%", paddingVertical: 5, marginTop: 15 }} key={x.Id + 1}>
+                                {DocId == x.Id ?
+
+                                    <TextInput style={styles.input} defaultValue={x.Task} key={x.Id + 2} onChangeText={setChnageTask} /> :
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <CheckBox
+                                            style={{ width: "10%" }}
+                                            checked={checkbox == x.Id && check1}
+                                            onPress={() => { setCheck1(!check1); setcheckbox(x.Id); updateDoc("Demo", ChnageTask, x, "CheckBox") }}
+                                        />
+                                        <Text style={{
+                                            fontSize: 20,
+                                            fontWeight: "bold",
+                                            width: "50%"
+                                        }} key={x.Id + 2}>{x.Task} </Text>
+                                    </View>
+                                }
+                                <View style={{ flexDirection: "row", justifyContent: 'space-between', width: "40%" }} key={x.Id + 3}>
+                                    {DocId == x.Id ? <Button
+                                        onPress={() => { updateDoc("Demo", ChnageTask, x, "Update"); setDocId(null) }}
+                                        title="Done"
+                                        color="#20c997"
+                                        style={{ width: "15%" }}
+
+                                    /> :
+                                        <Button
+                                            onPress={() => { setDocId(x.Id); setChnageTask(x.Task) }}
+                                            title="Edit"
+                                            color="#20c997"
+                                            style={{ width: "15%" }}
+                                        />}
+                                    <Button
+                                        onPress={() => { deleteDoc("Demo", x.Id) }}
+                                        title="Delete"
+                                        color="#dc3545"
+                                        style={{ width: "15%" }}
+                                    />
+                                </View>
+                            </View>
+                        )
+                    })}
+                </View>
+
+            </ScrollView>
