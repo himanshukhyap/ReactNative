@@ -2,7 +2,7 @@ export default {
 	username:"",
 	isuser:null,
 	IsLive: false,
-
+	confirm:null,
 	ActiveRouteName: '',
 
 	LiveApiBaseUrl: 'http://app.knparises.com/',
@@ -95,3 +95,4 @@ export default {
 		Object({ id: 5, name: 'Other' }),
 	],
 }
+

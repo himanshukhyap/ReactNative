@@ -4,6 +4,9 @@
 // Import React and Component
 import React from 'react';
 import {View, Image, TouchableOpacity} from 'react-native';
+import Colors from '../../constants/Colors';
+import { MenuIcon, UserIcon } from '../../constants/IconCom';
+import { screen, screen_width, window_width } from '../../constants/DimensionCom';
 
 const NavigationDrawerHeader = (props) => {
   const toggleDrawer = () => {
@@ -11,15 +14,12 @@ const NavigationDrawerHeader = (props) => {
   };
 
   return (
-    <View style={{flexDirection: 'row'}}>
-      <TouchableOpacity onPress={toggleDrawer}>
-        <Image
-          source={{
-            uri:
-              'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
-          }}
-          style={{width: 30, height: 30, marginRight: 20}}
-        />
+    <View style={{flexDirection: 'row',color:Colors.white, alignItems:'flex-start',justifyContent:'flex-start'}}>
+      <TouchableOpacity onPress={toggleDrawer} style={{color:Colors.white}}>
+       
+       <MenuIcon name="menu"  size={screen.fontScale*30} style={{color:Colors.white,
+         marginRight: screen_width*0.02
+        }} />
       </TouchableOpacity>
     </View>
   );

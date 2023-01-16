@@ -11,17 +11,19 @@ import Colors from '../constants/Colors';
 import { UserIcon } from '../constants/IconCom';
 import { MyButton } from '../constants/MyButton';
 import auth from '@react-native-firebase/auth';
+import Variables from '../constants/Variables';
 
-export default function OTPCom({ route, navigation }, props) {
+export default function OTPCom({ navigation }) {
     const user = firebase.auth().currentUser;
     const [code, setCode] = useState('');
-    const { confirm } = route.params;
+    // const { confirm } = route.params;
 
     async function confirmCode() {
         console.log(code)
         try {
-            await confirm.confirm(code);
+            await Variables.confirm?.confirm(code);
             // alert("Succesfull")
+            Variables.confirm=null
         } catch (error) {
             alert('Invalid code.');
         }

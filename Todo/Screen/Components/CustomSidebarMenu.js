@@ -4,7 +4,8 @@
 // Import React and Component
 import React from 'react';
 import {View, Text, Alert, StyleSheet} from 'react-native';
-
+import { firebase } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -15,17 +16,20 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { logout } from '../../Firebase/Auth/SingOut';
 import Variables from '../../constants/Variables';
 import Colors from '../../constants/Colors';
+import { screen, screen_width } from '../../constants/DimensionCom';
 
 const CustomSidebarMenu = (props) => {
+  const user = firebase.auth().currentUser;
   return (
     <View style={stylesSidebar.sideMenuContainer}>
       <View style={stylesSidebar.profileHeader}>
         <View style={stylesSidebar.profileHeaderPicCircle}>
-          <Text style={{fontSize: 25, color: Colors.black}}>
-            {'To Do'.charAt(0)}
+          <Text style={{fontSize: screen.fontScale*18, color: Colors.black,}}>
+            {user.displayName==null?"To Do":user.displayName.toLocaleUpperCase().charAt(0)}
+            {/* {user?.displayName==null?"TODO":user?.displayName?.toLocaleUpperCase().charAt(0)} */}
           </Text>
         </View>
-        <Text style={stylesSidebar.profileHeaderText}>{Variables.username}</Text>
+        <Text style={stylesSidebar.profileHeaderText}>{user.displayName==null?"TO DO":user.displayName.toLocaleUpperCase()}</Text>
       </View>
       <View style={stylesSidebar.profileHeaderLine} />
 
@@ -72,12 +76,14 @@ const stylesSidebar = StyleSheet.create({
     backgroundColor: Colors.black,
     paddingTop: 40,
     color: Colors.white,
+    
   },
   profileHeader: {
     flexDirection: 'row',
     backgroundColor: Colors.black,
     padding: 15,
     textAlign: 'center',
+    width:screen_width*.40
   },
   profileHeaderPicCircle: {
     width: 60,

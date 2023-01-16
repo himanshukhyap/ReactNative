@@ -23,9 +23,9 @@ import { screen } from '../constants/DimensionCom';
 import Colors from '../constants/Colors';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { container } from '../CSS/CssLibrary';
-import { EmailInput, PasswordInput } from '../constants/InputCom';
+import { EmailInput, NormalInput, PasswordInput } from '../constants/InputCom';
 import { MyButton } from '../constants/MyButton';
-import { IsEmailValid, IsPasswordValid } from '../constants/Validator/ValidatorFunction';
+import { IsEmailValid, IsFullNameValid, IsPasswordValid } from '../constants/Validator/ValidatorFunction';
 
 const RegisterScreen = ({ navigation }) => {
   const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
@@ -33,6 +33,7 @@ const RegisterScreen = ({ navigation }) => {
   const user = firebase.auth().currentUser;
   const [Email, setEmail] = useState(null)
   const [password, setpassword] = useState(null)
+  const[displayName, setdisplayName] = useState("")
   const emailInputRef = createRef();
   if (user != null) {
     navigation.navigate('Task')
@@ -42,12 +43,13 @@ const RegisterScreen = ({ navigation }) => {
   const passwordInputRef = useRef(null)
 
   const handleSubmitButton = async () => {
-    const isemailvalid = IsEmailValid(Email)
+    const _IsFullNameValid= IsFullNameValid(displayName)
+    const isemailvalid = _IsFullNameValid?IsEmailValid(Email):false
     const ispasswordvalid = isemailvalid ? IsPasswordValid(password) : false
 
     if (isemailvalid === true & ispasswordvalid === true) {
       // console.warn("df")
-      await createuser(Email, password)
+      await createuser(Email, password,displayName )
       setLoading(true)
       // await   setIsRegistraionSuccess(true)
     }
@@ -71,7 +73,19 @@ const RegisterScreen = ({ navigation }) => {
             }}
           />
         </View> */}
-
+ <NormalInput
+        // style={styles.inputStyle}
+        onChangeText={(val) => setdisplayName(val)}
+        placeholder="Enter Full Name"
+        placeholderTextColor={Colors.white}
+        keyboardType="sentense"
+        returnKeyType="next"
+        blurOnSubmit={false}
+        onSubmitEditing={() =>
+          emailInputRef.current &&
+          emailInputRef.current.focus()
+        }
+      />
       <EmailInput
         // style={styles.inputStyle}
         onChangeText={(val) => setEmail(val)}

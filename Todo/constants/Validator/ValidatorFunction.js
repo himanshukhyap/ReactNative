@@ -65,3 +65,21 @@ export const IsPhoneValid = (phone) => {
     }
 
 }
+
+export const IsFullNameValid = (FullName) => {
+    // console.log(text);
+    const reg = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/;
+    if (!FullName) {
+        alert('Please fill Full Name');
+        return false
+    }
+    if (reg.test(FullName) === false ) {
+        alert("This is not a valid Name");
+        return false
+    }
+    if (reg.test(FullName) === true) {
+
+        return true
+    }
+
+}

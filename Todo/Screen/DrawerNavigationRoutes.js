@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Task from '../AfterLogin/Task/Task';
 import Storage from '../AfterLogin/Storage/Storage';
 import Colors from '../constants/Colors';
+import { screen_width } from '../constants/DimensionCom';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -83,7 +84,7 @@ const DrawerNavigatorRoutes = () => {
       screenOptions={{
         drawerStyle: {
           backgroundColor: Colors.black, //Set Drawer background
-          width: 250, //Set Drawer width
+          width: screen_width*.50, //Set Drawer width
         },
         headerStyle: {
           backgroundColor: Colors.white, //Set Header color
@@ -92,11 +93,11 @@ const DrawerNavigatorRoutes = () => {
         headerTitleStyle: {
           fontWeight: 'bold', //Set Header text style
         },
-        drawerActiveBackgroundColor:Colors.black,
+        drawerActiveBackgroundColor:Colors.white,
         drawerActiveTintColor:Colors.accent,
         drawerInactiveTintColor:Colors.white
       }}
-      drawerContent={CustomSidebarMenu}
+       drawerContent={CustomSidebarMenu}
     >
 
       <Drawer.Screen

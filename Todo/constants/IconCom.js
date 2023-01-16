@@ -21,6 +21,8 @@ export const EnterIcon =(props)=> <AntDesignIcon name="enter"  size={props.size}
 export const EditIcon =(props)=> <AntDesignIcon name="edit"  size={props.size} style={props.style} onPress={props.onPress}/>
 export const DeleteIcon =(props)=> <AntDesignIcon name="delete"  size={props.size} style={props.style} onPress={props.onPress}/>
 
+export const MenuIcon =(props)=> <Icon name="menu"  size={props.size} style={props.style} onPress={props.onPress}/>
+// menufold
 const MaterialCommunityIcons =
     {
     "ab-testing": 983497,

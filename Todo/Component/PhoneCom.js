@@ -13,19 +13,23 @@ import { MyButton } from '../constants/MyButton';
 import auth from '@react-native-firebase/auth';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import { IsPhoneValid } from '../constants/Validator/ValidatorFunction';
+import Variables from '../constants/Variables';
 
-export default function PhoneCom({ navigation }, props) {
+export default function PhoneCom({ navigation }) {
     // const user = firebase.auth().currentUser;
     const [number, setnumber] = useState(null)
-    const [confirm, setConfirm] = useState(null);
+    // const [confirm, setConfirm] = useState(null);
     const [Loading, setLoading] = useState(false);
 
-    if (confirm != null) {
+    if (Variables.confirm != null) {
+       
         // setLoading(false)
-        navigation.navigate("OTPScreen", { confirm: confirm })
+        navigation.navigate("OTPScreen")
+
     }
 
     const handleSubmitButton = async () => {
+       
         setLoading(true)
         const _IsPhoneValid = await IsPhoneValid(number)
 
@@ -34,8 +38,9 @@ export default function PhoneCom({ navigation }, props) {
             // console.warn("df")
             try {
                 const confirmation = await auth().signInWithPhoneNumber('+91' +number);
-                setConfirm(confirmation);
-
+                // setConfirm(confirmation);
+                Variables.confirm=confirmation
+                setLoading(false)
             }
             catch (error) {
                 alert('Invalid number.');
@@ -68,7 +73,7 @@ export default function PhoneCom({ navigation }, props) {
                     keyboardType="numeric"
                     backgroundColor={Colors.white}
                     placeholderTextColor={Colors.white}
-                    onChangeText={(number) => { setnumber(number) }}
+                    onChangeText={(number) => {Variables.confirm=null, setnumber(number) }}
                     maxLength={10}
                 />
                 <MyButton
@@ -83,7 +88,7 @@ export default function PhoneCom({ navigation }, props) {
 
                     }}
                     onPress={() => {
-                        handleSubmitButton( number)
+                                                handleSubmitButton( number)
                     }}
                     title="Submit"
                     // disabled={number == null}

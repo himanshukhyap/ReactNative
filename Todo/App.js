@@ -71,16 +71,18 @@ const AuthScreen = () => {
 
 const App = () => {
   const [user, setUser] = useState(null);
-
-  const users = firebase.auth().currentUser;
+console.log(user)
+  // const users = firebase.auth().currentUser;
   function onAuthStateChanged(user) {
-    setUser(user);
     Variables.isuser = user?.uid;
     Variables.username = user?.displayName;
+    setUser(user);
 
   }
   useEffect(() => {
     auth().onAuthStateChanged(onAuthStateChanged)
+    Variables.isuser = user?.uid;
+    Variables.username = user?.displayName;
   }, []);
   return (
     <NavigationContainer>
