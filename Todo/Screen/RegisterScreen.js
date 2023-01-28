@@ -18,7 +18,7 @@ import {
 import Loader from './Components/Loader';
 import { createuser } from '../Firebase/Auth/createuser';
 import { firebase } from '@react-native-firebase/firestore'
-import { CheckIcon, UserIcon } from '../constants/IconCom';
+import { CheckIcon, EditIcon, UserIcon } from '../constants/IconCom';
 import { screen } from '../constants/DimensionCom';
 import Colors from '../constants/Colors';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -61,7 +61,7 @@ const RegisterScreen = ({ navigation }) => {
       {/* <Loader loading={true} /> */}
 
       <Spinner visible={loading} />
-      <CheckIcon style={{ color: Colors.white1 }} size={screen.scale * 45} />
+      <EditIcon style={{ color: Colors.white1 }} size={screen.scale * 45} />
       {/* <View style={{ alignItems: 'center' }}>
           <Image
             source={require('../Image/aboutreact.png')}
